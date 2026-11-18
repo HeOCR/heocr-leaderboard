@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeOCR leaderboard</title>
+<meta name="description" content="Hebrew OCR and document reading benchmarks, per kind of document, read from HeOCR's public results.json.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav class="langbar"><button id="lang" type="button" lang="he">עברית</button></nav>
+    <div id="head"><h1>HeOCR leaderboard</h1></div>
+  </div>
+</header>
+<main id="main" class="wrap"><p class="note">Loading results.json…</p></main>
+<footer><div class="wrap"><p id="foot"></p></div></footer>
+<noscript><div class="wrap"><p>This page needs JavaScript to read results.json. The same figures are on <a href="https://heocr.github.io/benchmarks.html">heocr.github.io/benchmarks.html</a>.</p></div></noscript>
+<script type="module">
+  import { boot } from "./leaderboard.js";
+  boot();
+</script>
+</body>
+</html>
