@@ -1,0 +1,46 @@
+name: Submit a reader
+description: Ask HeOCR to score your OCR engine or document reader for the leaderboard.
+title: "Submission: <reader name and version>"
+labels: [submission]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        HeOCR scores every submission itself with the public scorer, under the same text normalisation as every
+        other reader, and adds the result to results.json. Numbers computed elsewhere are not posted.
+        Submissions are run once the D-bench sets and their scorer are public; an issue opened before then holds its place.
+  - type: input
+    id: reader
+    attributes:
+      label: Reader name and exact version
+    validations:
+      required: true
+  - type: input
+    id: licence
+    attributes:
+      label: Licence of the reader
+    validations:
+      required: true
+  - type: dropdown
+    id: domain
+    attributes:
+      label: Domain
+      options:
+        - Documents by format
+        - Modern printed Hebrew
+        - Historical and rabbinic printed Hebrew
+        - Handwriting
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Outputs
+      description: A link to, or an attachment of, your reader's plain-text output for each page or document, named by its id in the set.
+    validations:
+      required: true
+  - type: textarea
+    id: how
+    attributes:
+      label: How the outputs were made
+      description: Command line or settings, so the run can be repeated.
