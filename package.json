@@ -1,0 +1,13 @@
+{
+  "name": "heocr-leaderboard",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "description": "The HeOCR leaderboard: a static Hugging Face Space built from heocr.github.io/benchmarks/results.json.",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check-live": "node scripts/check_live.mjs",
+    "serve": "python3 -m http.server 8765"
+  },
+  "engines": { "node": ">=20" }
+}
