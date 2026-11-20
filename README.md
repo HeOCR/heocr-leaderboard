@@ -22,13 +22,11 @@ shows nothing but a link to the site rather than guess.
 
 ## What it shows
 
-- **Release gate**: a placeholder until the gate verdict is in `results.json`.
-- One section per domain, in this order: documents by format, modern print, historical print, handwriting,
+- One section per domain, in this order: modern print, historical print, handwriting,
   commercial vendors. A domain without scores says so and shows no figure.
 - One table per measure, each labelled "lower is better" or "higher is better". Every cell gives the value, its 95%
   interval (or "no interval" where the set is too small for one) and n.
-- HeOCR's own readers are highlighted. Stock Tesseract (tessdata_best heb) is always a column, with its score wherever
-  it has one.
+- HeOCR's own readers are highlighted. Each table shows the readers scored for that set.
 - English and Hebrew (the button at the top; `?lang=he` also works).
 - How to submit a reader.
 
@@ -42,20 +40,18 @@ npm run check-live       # fetch the live results.json and render it in both lan
 npm run serve            # http://localhost:8765
 ```
 
-`test/fixtures/results.json` is a copy of the public file for the tests only; the page never reads it. Refresh it
-when the site's file changes shape.
+`test/fixtures/results.json` contains the real-set portion of a public results snapshot. The page does not read the fixture.
 
 ## Submit a reader
 
 Open an [issue](https://github.com/HeOCR/heocr-leaderboard/issues/new?template=submission.yml) or a pull request
 with your reader's name, version and licence, and its plain-text output for each document or page of the set you want
 scored. HeOCR scores every submission itself with the public scorer and adds it to `results.json`; numbers computed
-elsewhere are not posted. Submissions are run once the D-bench sets and their scorer are public; an issue opened
-before then holds its place.
+elsewhere are not posted. Submit results for a registered held-out real set.
 
 ## Publish
 
-Not published yet: the Space goes up after the release gate verdict, on the maintainer's word. When it does, push
+The maintainer decides when to publish the Space. When it does, push
 this repository's files to a Hugging Face Space of type static under the HeOCR organisation. No secrets, sign-in or
 gating are involved.
 

@@ -10,12 +10,10 @@ export const REPO = "https://github.com/HeOCR/heocr-leaderboard";
 export const KNOWN_SCHEMA = "heocr_site_benchmarks.v0";
 
 /** The domains, in the order shown. */
-export const DOMAINS = ["documents", "p_mod", "p_hist", "handwriting", "vendors"];
+export const DOMAINS = ["p_mod", "p_hist", "handwriting", "vendors"];
 
 /** Error measures; every other measure is a recall (higher is better). */
 const LOWER = new Set(["cer", "wer", "rows_silent", "silent_loss"]);
-/** heocr first, then stock Tesseract (always a column), then the open alternatives; any other reader after them. */
-const READER_ORDER = ["heocr", "stock", "docling", "markitdown", "pymupdf4llm"];
 const MEASURE_ORDER = ["cer", "wer", "number_recall", "silent_loss", "labels", "rows_read", "rows_silent", "image_word_recall"];
 
 export const T = {
@@ -23,7 +21,7 @@ export const T = {
     dir: "ltr",
     other: "עברית",
     title: "HeOCR leaderboard",
-    lede: "Hebrew OCR and document reading, per kind of document. Every figure is read from HeOCR's public results file, {json}, the same file behind the {site}.",
+    lede: "Held-out Hebrew OCR results on real pages. Every figure is read from HeOCR's public results file, {json}, the same file behind the {site}.",
     site: "benchmarks page",
     loading: "Loading results.json…",
     load_error: "Could not load results.json ({why}). The figures are also on the {site}.",
@@ -34,17 +32,10 @@ export const T = {
     lower: "lower is better",
     higher: "higher is better",
     no_interval: "no interval",
-    not_handled: "does not read this format",
     not_scored: "no score",
-    n_docs: "{n}",
-    n_of: "{n} of {total}",
     n_pages: "{n} pages",
-    gate_h: "Release gate",
-    gate_status: { not_run: "Not yet run" },
-    gate_t: "The release gate scores HeOCR on fresh sets made after its code is frozen, then decides whether the release ships. Its verdicts will appear here. Until then, the figures below are measurements, not release verdicts.",
-    gate_other: "The verdict is on the {site}.",
     toc: "Domains",
-    h: { documents: "Documents by format", p_mod: "Modern printed Hebrew", p_hist: "Historical and rabbinic printed Hebrew", handwriting: "Handwriting", vendors: "Commercial OCR vendors" },
+    h: { p_mod: "Modern printed Hebrew", p_hist: "Historical and rabbinic printed Hebrew", handwriting: "Handwriting", vendors: "Commercial OCR vendors" },
     status: { no_data: "No data yet", pending_review: "Pending", scored: "Scored" },
     empty: {
       p_mod: "No data yet. Reference pages are under human review; no number is shown until a reviewed set is scored.",
@@ -52,39 +43,24 @@ export const T = {
       vendors: "Scores are pending human review of the reference pages.",
     },
     unknown_shape: "Figures for this domain are in a form this page does not show yet. See the {site}.",
-    doc_sub: "Generated documents with exact gold (D-bench): Word files and PDFs of every kind HeOCR's document reader handles, made so the correct text is known exactly. One row per kind of document.",
-    doc_flatter: "heocr is developed against these sets, so they are not held out and flatter it. The release gate scores a fresh set made after the code is frozen.",
     small_set: "This set is small: {p} pages from {c} books. Intervals are wide and most overlap, so read differences between engines as indications, not rankings.",
-    format: "Kind of document",
     slice: "Pages",
-    docs: "{n} documents",
     pages: "{p} pages, {c} books",
     too_small: "Too few books for an interval; shown for completeness.",
     not_scored_engine: "{e} has not been scored on these pages.",
     wer_note: "Word error counts inserted words as well as wrong and missing ones, so it can exceed 100%.",
-    reader_note: "Each row lists the readers that handle that kind of document. Tesseract reads images only, so it is scored on scans; on PDF T6 it is scored on the image regions only.",
-    t4_note: "T4 and T5 use the same scanned pages; heocr and Tesseract read both by OCR, so their figures match. T4 adds a wrong text layer, which the other readers use.",
-    f: { measure: "Measure", ref: "Reference", licence: "Licence", interval: "Interval", run: "Run", code: "Scoring code", readers: "Reader versions", excluded: "Left out", set: "Set" },
-    excluded: "{n} cases whose scores cannot be published",
+    f: { measure: "Measure", ref: "Reference", licence: "Licence", interval: "Interval", code: "Scoring code", set: "Set" },
     scorer: "{repo} at {commit}, scored {d}",
     m: {
       cer: "Character error (CER)", wer: "Word error (WER)", number_recall: "Numbers found", labels: "Section numbers correct",
       rows_read: "Table rows read", rows_silent: "Rows lost without a warning", silent_loss: "Text lost without a warning",
       image_word_recall: "Words in image regions found",
     },
-    readers: { heocr: "heocr", stock: "Tesseract (tessdata_best heb)", docling: "Docling", markitdown: "MarkItDown", pymupdf4llm: "PyMuPDF4LLM" },
-    cells: {
-      DOCX: "Word (.docx)", DOC: "Legacy Word (.doc)", "PDF T1": "PDF with a correct text layer",
-      "PDF T2": "PDF whose text layer is in visual (reversed) order", "PDF T3": "PDF with a broken but recoverable character map",
-      "PDF T4": "Scan with a wrong OCR text layer", "PDF T5": "Scan, image only", "PDF T6": "Text layer plus text drawn as images",
-      "PDF spread": "Two pages on one sheet", "Scanned tables": "Scanned pages with a ruled table",
-    },
     slices: { all: "All pages", unpointed: "Without pointed (niqqud) pages", rabbinic: "Rabbinic print, without niqqud", square: "Standard square type", pointed: "Pointed text (niqqud) only" },
     submit_h: "How to submit",
     submit: [
       "Open an issue or a pull request in {repo} with your reader's name, version and licence, and its plain-text output for each document or page of the set you want scored.",
       "We do not post numbers computed elsewhere. HeOCR scores every submission itself with the public scorer, under the same normalisation as every other reader, and adds it to results.json; this board then shows it.",
-      "Submissions are run once the D-bench sets and their scorer are public. Until then, open the issue anyway: it holds your place, and we run it then.",
       "Everything HeOCR releases is open, and so are the scores: no sign-in, no gating.",
     ],
     footer: "Built from {json}. Code: {repo} (Apache-2.0).",
@@ -93,7 +69,7 @@ export const T = {
     dir: "rtl",
     other: "English",
     title: "טבלת המובילים של HeOCR",
-    lede: "זיהוי תווים וקריאת מסמכים בעברית, לפי סוג המסמך. כל מספר נקרא מקובץ התוצאות הפומבי של HeOCR, {json}, אותו קובץ שממנו נבנה {site}.",
+    lede: "תוצאות זיהוי תווים בעברית על דפים אמיתיים שהוחזקו בצד. כל מספר נקרא מקובץ התוצאות הפומבי של HeOCR, {json}, אותו קובץ שממנו נבנה {site}.",
     site: "דף מדדי הביצועים",
     loading: "טוען את results.json…",
     load_error: "לא ניתן לטעון את results.json ‏({why}). המספרים מופיעים גם ב{site}.",
@@ -104,17 +80,10 @@ export const T = {
     lower: "נמוך יותר עדיף",
     higher: "גבוה יותר עדיף",
     no_interval: "בלי רווח סמך",
-    not_handled: "לא קורא את הפורמט הזה",
     not_scored: "אין ציון",
-    n_docs: "{n}",
-    n_of: "{n} מתוך {total}",
     n_pages: "{n} עמודים",
-    gate_h: "שער השחרור",
-    gate_status: { not_run: "עוד לא הורץ" },
-    gate_t: "שער השחרור מעריך את HeOCR על קבוצות חדשות שנוצרות אחרי שהקוד מוקפא, ומחליט אם הגרסה משוחררת. ההחלטות יופיעו כאן. עד אז, המספרים שלמטה הם מדידות, לא החלטות שחרור.",
-    gate_other: "ההחלטה מופיעה ב{site}.",
     toc: "תחומים",
-    h: { documents: "מסמכים לפי פורמט", p_mod: "דפוס עברי מודרני", p_hist: "דפוס עברי היסטורי ורבני", handwriting: "כתב יד", vendors: "ספקי OCR מסחריים" },
+    h: { p_mod: "דפוס עברי מודרני", p_hist: "דפוס עברי היסטורי ורבני", handwriting: "כתב יד", vendors: "ספקי OCR מסחריים" },
     status: { no_data: "אין עדיין נתונים", pending_review: "ממתין", scored: "הוערך" },
     empty: {
       p_mod: "אין עדיין נתונים. דפי הייחוס נמצאים בבדיקה אנושית; לא יוצג מספר עד שתוערך קבוצה שנבדקה.",
@@ -122,39 +91,24 @@ export const T = {
       vendors: "הציונים ממתינים לבדיקה אנושית של דפי הייחוס.",
     },
     unknown_shape: "המספרים בתחום הזה במבנה שהדף עוד לא מציג. ראו את {site}.",
-    doc_sub: "מסמכים מחוללים עם טקסט נכון מדויק (D-bench): קובצי Word וקובצי PDF מכל הסוגים שקורא המסמכים של HeOCR מטפל בהם, שנוצרו כך שהטקסט הנכון ידוע במדויק. שורה לכל סוג מסמך.",
-    doc_flatter: "heocr מפותח מול הקבוצות האלה, ולכן הן אינן מוחזקות בצד ומחמיאות לו. שער השחרור יעריך קבוצה חדשה שתיווצר אחרי שהקוד יוקפא.",
     small_set: "הקבוצה קטנה: {p} עמודים מ־{c} ספרים. רווחי הסמך רחבים ורובם חופפים, ולכן יש לקרוא את ההבדלים בין המנועים כסימנים, לא כדירוג.",
-    format: "סוג המסמך",
     slice: "עמודים",
-    docs: "{n} מסמכים",
     pages: "{p} עמודים, {c} ספרים",
     too_small: "מעט מדי ספרים לרווח סמך; מוצג לשלמות התמונה.",
     not_scored_engine: "{e} עוד לא הוערך על העמודים האלה.",
     wer_note: "שגיאת מילים סופרת גם מילים שנוספו, לא רק מילים שגויות או חסרות, ולכן היא יכולה לעלות על 100%.",
-    reader_note: "בכל שורה מופיעים הקוראים שמטפלים בסוג המסמך שלה. Tesseract קורא תמונות בלבד, ולכן הוא מוערך על סריקות; ב־PDF T6 הוא מוערך על אזורי התמונה בלבד.",
-    t4_note: "T4 ו־T5 משתמשים באותם עמודים סרוקים; heocr ו־Tesseract קוראים את שניהם ב־OCR, ולכן התוצאות שלהם זהות. ב־T4 נוספת שכבת טקסט שגויה, שבה משתמשים הקוראים האחרים.",
-    f: { measure: "מדד", ref: "טקסט ייחוס", licence: "רישיון", interval: "רווח סמך", run: "הרצה", code: "קוד ההערכה", readers: "גרסאות הקוראים", excluded: "הושמטו", set: "קבוצה" },
-    excluded: "{n} מקרים שאי אפשר לפרסם את הציונים שלהם",
+    f: { measure: "מדד", ref: "טקסט ייחוס", licence: "רישיון", interval: "רווח סמך", code: "קוד ההערכה", set: "קבוצה" },
     scorer: "{repo} בגרסה {commit}, הוערך ב־{d}",
     m: {
       cer: "שגיאת תווים (CER)", wer: "שגיאת מילים (WER)", number_recall: "מספרים שנמצאו", labels: "מספרי סעיפים נכונים",
       rows_read: "שורות טבלה שנקראו", rows_silent: "שורות שאבדו בלי אזהרה", silent_loss: "טקסט שאבד בלי אזהרה",
       image_word_recall: "מילים שנמצאו באזורי תמונה",
     },
-    readers: { heocr: "heocr", stock: "Tesseract ‏(tessdata_best heb)", docling: "Docling", markitdown: "MarkItDown", pymupdf4llm: "PyMuPDF4LLM" },
-    cells: {
-      DOCX: "Word ‏(‎.docx‏)", DOC: "Word ישן ‏(‎.doc‏)", "PDF T1": "PDF עם שכבת טקסט תקינה",
-      "PDF T2": "PDF ששכבת הטקסט שלו בסדר חזותי (הפוך)", "PDF T3": "PDF עם מפת תווים שבורה אך ניתנת לשחזור",
-      "PDF T4": "סריקה עם שכבת OCR שגויה", "PDF T5": "סריקה, תמונה בלבד", "PDF T6": "שכבת טקסט ועוד טקסט שמצויר כתמונה",
-      "PDF spread": "שני עמודים בגיליון אחד", "Scanned tables": "עמודים סרוקים עם טבלה",
-    },
     slices: { all: "כל העמודים", unpointed: "בלי עמודים מנוקדים", rabbinic: "דפוס רבני, בלי ניקוד", square: "אותיות מרובעות רגילות", pointed: "טקסט מנוקד בלבד" },
     submit_h: "איך להגיש",
     submit: [
       "פתחו issue או pull request ב־{repo} עם שם הקורא, הגרסה והרישיון שלו, ופלט הטקסט שלו לכל מסמך או עמוד בקבוצה שאתם רוצים שתוערך.",
       "איננו מפרסמים מספרים שחושבו במקום אחר. HeOCR מעריך כל הגשה בעצמו בכלי ההערכה הפומבי, באותו נרמול כמו כל קורא אחר, ומוסיף אותה ל־results.json; הטבלה כאן מציגה אותה מיד אחר כך.",
-      "ההגשות ירוצו כשקבוצות D-bench וכלי ההערכה שלהן יהיו פומביים. עד אז, פתחו את ה־issue בכל זאת: הוא שומר לכם מקום, ונריץ אותו אז.",
       "כל מה ש־HeOCR משחרר פתוח, וכך גם הציונים: בלי הרשמה ובלי הגבלת גישה.",
     ],
     footer: "נבנה מתוך {json}. הקוד: {repo} ‏(Apache-2.0).",
@@ -196,10 +150,7 @@ const HE_TEXT = {
     "hocrgen evaluate-references, פרופיל primary.v1 (טקסט העמוד, יחס של סכומים על פני העמודים)",
   "95% cluster bootstrap over Wikisource Indexes (2000 resamples, seed 20261106); none under 3 clusters":
     "bootstrap של 95% באשכולות לפי ספר בוויקיטקסט (2000 דגימות, seed 20261106); בלי רווח סמך מתחת ל־3 ספרים",
-  "95% percentile bootstrap over documents, 2000 resamples, seed 0": "bootstrap של 95% על פני המסמכים (2000 דגימות, seed 0)",
   "Hebrew Wikisource proofread transcriptions": "תעתיקים מוגהים מוויקיטקסט העברי",
-  "D-bench synthetic sets A, B and C: generated documents with exact gold; text from the public-domain Israeli official gazette (Reshumot)":
-    "קבוצות D-bench מחוללות A, B ו־C: מסמכים שנוצרו עם טקסט נכון מדויק; הטקסט מתוך רשומות (העיתון הרשמי), נחלת הכלל",
 };
 const tr = (t, s) => (t === T.he && HE_TEXT[s]) || s;
 
@@ -215,69 +166,8 @@ function dirLabel(t, m) {
   return LOWER.has(m) ? t.lower : t.higher;
 }
 
-/** Readers in a documents domain: the known order, then any reader results.json adds. Stock Tesseract is always a column. */
-function readersOf(D) {
-  const seen = new Set(READER_ORDER);
-  const extra = [];
-  for (const c of Object.values(D.cells)) for (const r of Object.keys(c.readers ?? {})) if (!seen.has(r)) { seen.add(r); extra.push(r); }
-  return [...READER_ORDER, ...extra];
-}
-
-function measuresOf(cells) {
-  const found = new Set();
-  for (const c of Object.values(cells)) for (const rec of Object.values(c.readers ?? {})) for (const k of Object.keys(rec)) if (k !== "documents") found.add(k);
-  return [...MEASURE_ORDER.filter((m) => found.has(m)), ...[...found].filter((m) => !MEASURE_ORDER.includes(m))];
-}
-
 function facts(rows) {
   return `<ul class="facts">${rows.filter(([, v]) => v).map(([k, v]) => `<li><strong>${esc(k)}:</strong> ${v}</li>`).join("")}</ul>`;
-}
-
-/** Documents by format: one table per measure, a row per kind of document, a column per reader. */
-export function documentsHtml(D, t) {
-  const readers = readersOf(D);
-  const out = [`<p class="sub">${esc(t.doc_sub)}</p>`, `<p class="warn">${esc(t.doc_flatter)}</p>`];
-  measuresOf(D.cells).forEach((m, i) => {
-    const rows = Object.entries(D.cells).filter(([, c]) => Object.values(c.readers ?? {}).some((r) => r[m]));
-    if (!rows.length) return;
-    out.push(`<details${i === 0 ? " open" : ""}><summary>${esc(t.m[m] ?? m)} <span class="dirtag">${esc(dirLabel(t, m))}</span></summary>`);
-    out.push(`<div class="tablewrap"><table data-measure="${esc(m)}"><thead><tr><th>${esc(t.format)}</th>`);
-    out.push(readers.map((r) => `<th${r === "heocr" ? ' class="ours"' : ""}>${esc(t.readers[r] ?? r)}</th>`).join(""));
-    out.push(`</tr></thead><tbody>`);
-    for (const [cell, c] of rows) {
-      out.push(`<tr><th scope="row">${esc(t.cells[cell] ?? cell)}<span class="ci">${num(esc(cell))} · ${esc(fill(t.docs, { n: c.documents }))}</span></th>`);
-      for (const r of readers) {
-        const ours = r === "heocr" ? " ours" : "";
-        const rec = c.readers?.[r];
-        const x = rec?.[m];
-        if (!rec) out.push(`<td class="na${ours}" title="${esc(t.not_handled)}">–</td>`);
-        else if (!x) out.push(`<td class="na${ours}" title="${esc(t.not_scored)}">–</td>`);
-        else {
-          const n = x.n ?? rec.documents;
-          const nText = n !== c.documents ? fill(esc(t.n_of), { n: nNum(n), total: num(esc(c.documents)) }) : fill(esc(t.n_docs), { n: nNum(n) });
-          out.push(figure(t, x.value, x.ci95, nText, ours));
-        }
-      }
-      out.push(`</tr>`);
-    }
-    out.push(`</tbody></table></div>`);
-    if (m === "wer") out.push(`<p class="note">${esc(t.wer_note)}</p>`);
-    out.push(`</details>`);
-  });
-  out.push(`<p class="note">${esc(t.reader_note)}</p>`);
-  if (D.cells["PDF T4"]) out.push(`<p class="note">${esc(t.t4_note)}</p>`);
-  const commit = /[0-9a-f]{40}/.exec(D.heocr ?? "")?.[0]?.slice(0, 7);
-  const vers = Object.entries(D.baselines ?? {}).map(([k, v]) => `${esc(t.readers[k] ?? k)} ${esc(v.version ?? v.ocr ?? "")}`).join("; ");
-  out.push(facts([
-    [t.f.measure, D.measure && `<code>${esc(D.measure)}</code>`],
-    [t.f.ref, D.reference && esc(tr(t, `${D.reference.name}: ${D.reference.source}`))],
-    [t.f.licence, D.reference?.licence && esc(D.reference.licence)],
-    [t.f.interval, D.interval && esc(tr(t, D.interval))],
-    [t.f.run, D.run && esc(commit ? `${D.run}; heocr ${commit}` : D.run)],
-    [t.f.readers, vers],
-    [t.f.excluded, D.excluded_cases?.length && esc(fill(t.excluded, { n: D.excluded_cases.length }))],
-  ]));
-  return out.join("\n");
 }
 
 /** A page set with slices (historical print now; modern print and handwriting when they are scored in this shape). */
@@ -328,20 +218,10 @@ function domainHtml(key, X, t, lang) {
   const status = X?.status ?? "no_data";
   const pill = `<span class="status s-${esc(status)}">${esc(t.status[status] ?? status)}</span>`;
   let body;
-  if (status === "scored" && X.cells) body = documentsHtml(X, t);
-  else if (status === "scored" && Array.isArray(X.slices) && X.engines) body = slicesHtml(X, t, { smallSet: key === "p_hist" });
+  if (status === "scored" && Array.isArray(X.slices) && X.engines) body = slicesHtml(X, t, { smallSet: key === "p_hist" });
   else if (status === "scored") body = `<div class="empty">${fill(esc(t.unknown_shape), { site })}</div>`;
   else body = `<div class="empty">${esc(t.empty[key] ?? t.status[status] ?? status)}</div>`;
   return `<section id="${key}"><h2>${esc(t.h[key])}</h2>${pill}\n${body}</section>`;
-}
-
-function gateHtml(R, t, lang) {
-  const gate = R.documents?.gate ?? "not_run";
-  const site = link(SITE_PAGE[lang], esc(t.site));
-  const label = t.gate_status[gate] ?? gate;
-  const more = gate === "not_run" ? "" : ` ${fill(esc(t.gate_other), { site })}`;
-  return `<section id="release-gate" class="gate"><h2>${esc(t.gate_h)}</h2><span class="status s-${esc(gate)}">${esc(label)}</span>`
-    + `<div class="empty">${esc(t.gate_t)}${more}</div></section>`;
 }
 
 function submitHtml(t) {
@@ -357,7 +237,6 @@ export function render(R, lang = "en") {
   return [
     `<p class="how">${esc(t.how)} ${esc(t.ours)}</p>`,
     `<p class="note">${esc(fill(t.updated, { d: R.updated }))}</p>`,
-    gateHtml(R, t, lang),
     `<nav class="toc" aria-label="${esc(t.toc)}">${toc}</nav>`,
     ...DOMAINS.map((k) => domainHtml(k, R[k], t, lang)),
     submitHtml(t),
